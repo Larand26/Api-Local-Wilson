@@ -1,6 +1,17 @@
 import App from "./App.js";
 import SqlServer from "./db/SqlServer.js";
 import serverConfig from "./config/serverConfig.js";
+import OrdersService from "./services/OrdersService.js";
+
+async function initialize() {
+  try {
+    await OrdersService.initialize();
+  } catch (error) {
+    process.exit(1);
+  }
+}
+
+void initialize();
 
 const app = new App();
 const server = app.server.listen(serverConfig.port, () => {

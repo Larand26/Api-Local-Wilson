@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -17,7 +17,21 @@ abstract class OrdersService {
     "query",
     "getOrdersQuery.sql",
   );
-  private static query = fs.readFileSync(this.queryPath, "utf8");
+  private static query: string | null = null;
+
+  static async initialize() {
+    try {
+      if (this.query) {
+        return;
+      }
+      this.query = await fs.readFile(this.queryPath, "utf8");
+    } catch (error) {
+      console.error(
+        `[OrdersService] Erro fatal: Não foi possível carregar a query em ${this.queryPath}`,
+      );
+      throw error;
+    }
+  }
 
   static async getOrders(): Promise<Iresponse> {
     try {
