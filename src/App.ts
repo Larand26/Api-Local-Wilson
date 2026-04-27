@@ -14,11 +14,25 @@ class App {
   }
 
   middlewares() {
-    // Aumentando o limite para 50 megabytes
-    this.server.use(express.json({ limit: "50mb" }));
+    this.server.use(express.json({ limit: "1mb" }));
+    this.server.use(express.urlencoded({ limit: "1mb", extended: true }));
 
-    // Se você estiver recebendo dados via urlencoded, adicione o limite lá também
-    this.server.use(express.urlencoded({ limit: "50mb", extended: true }));
+    this.server.use(
+      (
+        err: any,
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction,
+      ) => {
+        if (err?.type === "entity.too.large") {
+          return res
+            .status(413)
+            .json({ success: false, error: "Payload too large" });
+        }
+
+        return next(err);
+      },
+    );
   }
 }
 
