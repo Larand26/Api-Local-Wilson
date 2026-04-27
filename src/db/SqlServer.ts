@@ -1,16 +1,19 @@
 import sql from "mssql";
 import sqlserverConfig from "../config/sqlserverConfig.js";
 
+type SqlValue = string | number | boolean;
+type QueryParams = Record<string, SqlValue> | SqlValue[];
+
 class SqlServer {
-  private pool: sql.ConnectionPool | null;
-  private connecting: Promise<sql.ConnectionPool> | null;
+  private pool: sql.ConnectionPool | null = null;
+  private connecting: Promise<sql.ConnectionPool> | null = null;
 
   constructor() {
     this.pool = null;
     this.connecting = null;
   }
 
-  private async connect() {
+  private async connect(): Promise<sql.ConnectionPool> {
     try {
       if (this.pool?.connected) {
         return this.pool;
@@ -51,16 +54,22 @@ class SqlServer {
     this.pool = null;
   }
 
-  async query(
+  async query<T = any>(
     queryString: string,
-    params?: Array<string | number | boolean>,
-  ): Promise<any> {
+    params?: QueryParams,
+  ): Promise<T[]> {
     try {
       const pool = await this.connect();
       const request = pool.request();
       if (params) {
-        for (const key in params) {
-          request.input(key, params[key]);
+        if (Array.isArray(params)) {
+          params.forEach((value, index) => {
+            request.input(index.toString(), value);
+          });
+        } else {
+          Object.entries(params).forEach(([key, value]) => {
+            request.input(key, value);
+          });
         }
       }
       const result = await request.query(queryString);
