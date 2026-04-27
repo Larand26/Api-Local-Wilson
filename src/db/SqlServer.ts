@@ -20,7 +20,10 @@ class SqlServer {
     }
   }
 
-  async query(queryString: string, params?: any) {
+  async query(
+    queryString: string,
+    params?: Array<string | number | boolean>,
+  ): Promise<any> {
     try {
       if (!this.pool) {
         await this.connect();
