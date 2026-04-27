@@ -1,0 +1,12 @@
+# Configurações do Server
+.env
+
+# Configurações do Node
+node_modules/
+dist/
+
+# Configurações do Editor
+.vscode/
+
+# Testes
+tests/
