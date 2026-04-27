@@ -11,11 +11,11 @@ const toBoolean = (value: string | undefined, defaultValue: boolean) => {
 };
 
 const sqlserverConfig = {
-  server: process.env.SQLSERVER_HOST || "localhost",
-  port: process.env.SQLSERVER_PORT ? Number(process.env.SQLSERVER_PORT) : 1433,
-  user: process.env.SQLSERVER_USER || "sa",
-  password: process.env.SQLSERVER_PASSWORD || "yourStrong(!)Password",
-  database: process.env.SQLSERVER_DATABASE || "yourDatabase",
+  server: process.env.SQLSERVER_HOST || "",
+  port: process.env.SQLSERVER_PORT ? Number(process.env.SQLSERVER_PORT) : 0,
+  user: process.env.SQLSERVER_USER || "",
+  password: process.env.SQLSERVER_PASSWORD || "",
+  database: process.env.SQLSERVER_DATABASE || "",
   options: {
     encrypt: toBoolean(process.env.SQLSERVER_ENCRYPT, true),
     trustServerCertificate: toBoolean(
