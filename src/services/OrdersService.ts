@@ -1,19 +1,19 @@
+import fs from "fs";
+import path from "path";
+
+import SqlServer from "../db/SqlServer.js";
+
 import type { Iresponse } from "../interface/interfaces.js";
 
 abstract class OrdersService {
   static async getOrders(): Promise<Iresponse> {
     try {
-      // Simulate an API call
-      const orders = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve([
-            { id: 1, product: "Product 1", quantity: 2 },
-            { id: 2, product: "Product 2", quantity: 1 },
-          ]);
-        }, 1000);
-      });
+      const queryPath = path.join("src", "db", "query", "getOrdersQuery.sql");
+      const query = fs.readFileSync(queryPath, "utf8");
+      const orders = await SqlServer.query(query);
       return { success: true, data: orders };
     } catch (error) {
+      console.error("Error fetching orders:", error);
       return { success: false, error: "Failed to fetch orders" };
     }
   }
