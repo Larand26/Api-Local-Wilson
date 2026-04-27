@@ -3,6 +3,8 @@ import type { Request, Response } from "express";
 
 // Controlers
 import OrdersController from "../controllers/OrdersController.js";
+
+// Middlewares
 import authToken from "../middlewares/authToken.js";
 
 const routes = Router();
