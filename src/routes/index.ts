@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 
 // Controlers
 import OrdersController from "../controllers/OrdersController.js";
+import ClientsController from "../controllers/ClientsController.js";
 
 // Middlewares
 import authToken from "../middlewares/authToken.js";
@@ -18,6 +19,14 @@ routes.get(
   authToken,
   async (req: Request, res: Response) => {
     await OrdersController.getOrders(req, res);
+  },
+);
+
+routes.get(
+  "/api/get-client/:cnpj",
+  authToken,
+  async (req: Request, res: Response) => {
+    await ClientsController.getClientByCnpj(req, res);
   },
 );
 
