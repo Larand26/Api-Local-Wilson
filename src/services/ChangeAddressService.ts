@@ -18,7 +18,10 @@ abstract class ChangeAddressService {
         ID_FUNCAO: result[0].ID_FUNCAO,
       });
 
-      return { success: true, data: token };
+      return {
+        success: true,
+        data: { token: token, username: result[0].NOME },
+      };
     } catch (error) {
       console.error("Error fetching user:", error);
       return { success: false, error: "Failed to fetch user" };
