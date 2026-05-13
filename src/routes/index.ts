@@ -38,4 +38,11 @@ routes.post(
   },
 );
 
+routes.get(
+  "/api/change-address-app/product/:barcode",
+  async (req: Request, res: Response) => {
+    await ChangeAddressController.getProductByBarcode(req, res);
+  },
+);
+
 export default routes;
