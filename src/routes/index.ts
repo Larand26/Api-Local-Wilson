@@ -32,10 +32,10 @@ routes.get(
 );
 
 routes.get(
-  "/api/change-address-app/get-user",
+  "/api/change-address-app/login",
   authToken,
   async (req: Request, res: Response) => {
-    await ChangeAddressController.getUser(req, res);
+    await ChangeAddressController.login(req, res);
   },
 );
 

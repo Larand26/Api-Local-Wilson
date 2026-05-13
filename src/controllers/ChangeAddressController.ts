@@ -1,14 +1,14 @@
 import ChangeAddressService from "../services/ChangeAddressService.js";
 
 abstract class ChangeAddressController {
-  static async getUser(req: any, res: any) {
+  static async login(req: any, res: any) {
     try {
       const { name, password } = req.body;
       if (!name || !password) {
         res.status(400).json({ error: "Name and password are required" });
         return;
       }
-      const user = await ChangeAddressService.getUser(name, password);
+      const user = await ChangeAddressService.login(name, password);
       res.json(user);
     } catch (error) {
       console.error("Error fetching user:", error);
