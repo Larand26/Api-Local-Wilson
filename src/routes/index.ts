@@ -31,7 +31,7 @@ routes.get(
   },
 );
 
-routes.get(
+routes.post(
   "/api/change-address-app/login",
   authToken,
   async (req: Request, res: Response) => {
