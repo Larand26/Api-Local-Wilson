@@ -30,7 +30,7 @@ abstract class ChangeAddressController {
         res.status(404).json({ error: product.error || "Product not found" });
         return;
       }
-      res.json(product.data);
+      res.json(product);
     } catch (error) {
       console.error("Error fetching product:", error);
       res
