@@ -45,4 +45,11 @@ routes.get(
   },
 );
 
+routes.put(
+  "/api/change-address-app/update-address",
+  async (req: Request, res: Response) => {
+    await ChangeAddressController.updateAddress(req, res);
+  },
+);
+
 export default routes;
