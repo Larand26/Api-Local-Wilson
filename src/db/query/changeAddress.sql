@@ -1,0 +1,3 @@
+UPDATE [PRODUTODEPOSITO]
+SET [PRDE_RUA] = @rua, [PRDE_FILEIRA] = @fileira
+WHERE [ID_CODPRODUTO] = @id_product

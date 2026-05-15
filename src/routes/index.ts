@@ -4,6 +4,7 @@ import type { Request, Response } from "express";
 // Controlers
 import OrdersController from "../controllers/OrdersController.js";
 import ClientsController from "../controllers/ClientsController.js";
+import ChangeAddressController from "../controllers/ChangeAddressController.js";
 
 // Middlewares
 import authToken from "../middlewares/authToken.js";
@@ -27,6 +28,27 @@ routes.get(
   authToken,
   async (req: Request, res: Response) => {
     await ClientsController.getClientByCnpj(req, res);
+  },
+);
+
+routes.post(
+  "/api/change-address-app/login",
+  async (req: Request, res: Response) => {
+    await ChangeAddressController.login(req, res);
+  },
+);
+
+routes.get(
+  "/api/change-address-app/product/:barcode",
+  async (req: Request, res: Response) => {
+    await ChangeAddressController.getProductByBarcode(req, res);
+  },
+);
+
+routes.put(
+  "/api/change-address-app/update-address",
+  async (req: Request, res: Response) => {
+    await ChangeAddressController.updateAddress(req, res);
   },
 );
 
