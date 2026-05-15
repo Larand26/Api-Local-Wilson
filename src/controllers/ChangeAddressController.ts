@@ -57,15 +57,16 @@ abstract class ChangeAddressController {
       );
 
       if (result.success) {
-        res.json({ message: "Address updated successfully" });
+        res.json({ success: true, message: "Address updated successfully" });
       } else {
-        res.status(400).json({ error: result.error });
+        res.status(400).json({ success: false, error: result.error });
       }
     } catch (error) {
       console.error("Error updating address:", error);
-      res
-        .status(500)
-        .json({ error: "An error occurred while updating the address." });
+      res.status(500).json({
+        success: false,
+        error: "An error occurred while updating the address.",
+      });
     }
   }
 }
